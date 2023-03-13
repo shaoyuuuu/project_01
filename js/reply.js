@@ -36,19 +36,21 @@ const questionsList = [
   }
 ]
 const str = JSON.stringify(questionsList);
+const str1 = '[{"question":"11111111111","option":["aaaaaaaaa#","bbbbbbbbb","cccccccccccccccccc","ddddddddddd"]},{"question":"222222222","option":["aaaaaaaaa","bbbbbbbbb#","cccccccccccccccccc","ddddddddddd"]},{"question":"33333333333","option":["aaaaaaaaa","bbbbbbbbb","cccccccccccccccccc#","ddddddddddd"]},{"question":"444444444444","option":["aaaaaaaaa","bbbbbbbbb","cccccccccccccccccc","ddddddddddd#"]},{"question":"555555555555555","option":["aaaaaaaaa#","bbbbbbbbb","cccccccccccccccccc","ddddddddddd"]},{"question":"6666666666666","option":["aaaaaaaaa","bbbbbbbbb","cccccccccccccccccc#","ddddddddddd"]},{"question":"77777777777","option":["aaaaaaaaa","bbbbbbbbb","cccccccccccccccccc","ddddddddddd#"]},{"question":"88888888888","option":["aaaaaaaaa","bbbbbbbbb#","cccccccccccccccccc","ddddddddddd"]},{"question":"99999999999","option":["aaaaaaaaa","bbbbbbbbb","cccccccccccccccccc#","ddddddddddd"]},{"question":"1101001010","option":["aaaaaaaaa#","bbbbbbbbb","cccccccccccccccccc","ddddddddddd"]}]'
 
 //渲染题目函数 传入JSON对象
 function renderingProblems(questionsJSON) {
   const questionsLists = JSON.parse(questionsJSON);
-  if (problemCount <= questionsList.length) {
+  if (problemCount < questionsLists.length) {
     //浅拷贝对应题目的选项
-    const optionArr = JSON.parse(JSON.stringify(questionsList[problemCount].option));
+    const optionArr = JSON.parse(questionsJSON)[0].option;
+    console.log(optionArr);
     //将选项状态清空
     for (let i = 0; i < optionArr.length; i++) {
       document.querySelectorAll('.option')[i].className = 'option';
     }
 
-    problem.innerHTML =(problemCount+1)+'.<br>'+questionsLists[problemCount].question;
+    problem.innerHTML = (problemCount + 1) + '.<br>' + questionsLists[problemCount].question;
     for (let i = 0; i < options.length; i++) {
       let random = Math.floor(Math.random() * optionArr.length);
       if (/#/.test(optionArr[random])) {
@@ -59,10 +61,15 @@ function renderingProblems(questionsJSON) {
       optionArr.splice(random, 1);
     }
   }
+
+  if(problemCount===questionsLists.length){
+    alert('dawan')
+  }
 }
-renderingProblems(str);
+renderingProblems(str1);
 
 //判断选择选项的正误
+let xztTimer;
 document.querySelector('.question-bar').addEventListener('click', function (e) {
   if (e.target.dataset.option) {
     if (e.target.querySelector('span').innerHTML === correctOption) {
@@ -70,10 +77,13 @@ document.querySelector('.question-bar').addEventListener('click', function (e) {
     } else {
       e.target.classList.add('false');
     }
-    problemCount++;
-    let timer = setTimeout(function () {
-      renderingProblems(str);
-    }, 3000);
+    if (!xztTimer) {
+      xztTimer = setTimeout(function () {
+        problemCount++;
+        xztTimer = null;
+        renderingProblems(str1);
+      }, 300);
+    }
   }
 })
 
@@ -81,18 +91,18 @@ document.querySelector('.question-bar').addEventListener('click', function (e) {
 //向后台请求数据
 
 //运动测试
-const img=document.querySelector('.pet img');
-let ztf=1;
-let timer=setInterval(function(){
-  if(ztf===1){
-    img.src=`../image/run0${ztf}.png`;
-    ztf=2;
+const img = document.querySelector('.pet img');
+let ztf = 1;
+let timer = setInterval(function () {
+  if (ztf === 1) {
+    img.src = `../image/run0${ztf}.png`;
+    ztf = 2;
     return;
   }
-  if(ztf===2){
-    img.src=`../image/run0${ztf}.png`;
-    ztf=1;
+  if (ztf === 2) {
+    img.src = `../image/run0${ztf}.png`;
+    ztf = 1;
   }
-},150);
+}, 150);
 
 
