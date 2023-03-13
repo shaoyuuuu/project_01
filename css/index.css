@@ -1,0 +1,209 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+input {
+  margin: 0;
+  padding: 0;
+}
+/* 內减模式 */
+* {
+  box-sizing: border-box;
+}
+/* 设置网页统一的字体大小、行高、字体系列相关属性 */
+body {
+  font: 16px/1.5 "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+  color: #333;
+}
+/* 去除列表默认样式 */
+ul,
+ol {
+  list-style: none;
+}
+/* 去除默认的倾斜效果 */
+em,
+i {
+  font-style: normal;
+}
+/* 去除a标签默认下划线，并设置默认文字颜色 */
+a {
+  text-decoration: none;
+  color: #333;
+}
+/* 设置img的垂直对齐方式为居中对齐，去除img默认下间隙 */
+img {
+  vertical-align: middle;
+}
+/* 去除input默认样式 */
+input {
+  border: none;
+  outline: none;
+  color: #333;
+}
+/* 左浮动 */
+.fl {
+  float: left;
+}
+/* 右浮动 */
+.fr {
+  float: right;
+}
+/* 双伪元素清除法 */
+.clearfix::before,
+.clearfix::after {
+  content: "";
+  display: table;
+}
+.clearfix::after {
+  clear: both;
+}
+body {
+  display: flex;
+  background-image: url('../image/答题页面背景.png');
+}
+.circle {
+  border-radius: 50%;
+}
+.content-left {
+  display: flex;
+  height: 960px;
+  flex-direction: column;
+  flex: 1;
+}
+.content-left .nav {
+  height: 100px;
+}
+.content-left .nav .backhome {
+  width: 100px;
+  height: 100px;
+  margin-left: 40px;
+  margin-top: 40px;
+  box-shadow: 10px 10px 5px #808080;
+  background-color: #f7ffb6;
+  background-image: url();
+}
+.content-left .score {
+  width: 300px;
+  height: 300px;
+  align-self: center;
+  text-align: center;
+  font-size: 150px;
+  line-height: 300px;
+  color: #B02623;
+  box-shadow: 10px 10px 5px #808080;
+  background-color: #f7ffb6;
+}
+.content-left .pet {
+  flex: 1;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.content-left .pet .mypet {
+  margin-top: 50px;
+  width: 300px;
+  height: 300px;
+}
+.content-left .pet .mypet img {
+  width: 300px;
+  height: 300px;
+}
+.content-left .pet .petTips {
+  display: flex;
+  margin-left: 0;
+  width: 300px;
+  height: 400px;
+  padding: 20px;
+  text-align: center;
+  align-items: center;
+  box-shadow: 10px 10px 5px #808080;
+  border-radius: 10px;
+  background-color: #f7ffb6;
+}
+.content-left .pet .petTips #tips {
+  font-size: 22px;
+  font-weight: 600;
+}
+.content-right {
+  display: flex;
+  flex-direction: column;
+  height: 960px;
+  flex: 1;
+}
+.content-right .circle-list {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100px;
+}
+.content-right .circle-list .circle {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 40px;
+  border: 5px solid #CFCFD0;
+  text-align: center;
+  background-color: #f7ffb6;
+}
+.content-right .circle-list .true {
+  border: 5px solid #566840;
+}
+.content-right .circle-list .false {
+  border: 5px solid #744a4c;
+}
+.content-right .circle-list .now {
+  border: 5px solid #736249;
+}
+.content-right .question-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  font-size: 25px;
+}
+.content-right .question-bar .problem {
+  display: flex;
+  width: 800px;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 10px 10px 5px #808080;
+  border-radius: 10px;
+  background-color: #f7ffb6;
+}
+.content-right .question-bar .option {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  width: 500px;
+  height: 80px;
+  cursor: pointer;
+  box-shadow: 10px 10px 5px #808080;
+  border-radius: 10px;
+  color: #666;
+  background-color: #f7ffb6;
+}
+.content-right .question-bar .option span {
+  margin-left: 20px;
+  color: #333;
+}
+.content-right .question-bar .true {
+  background-color: #D4F2FE;
+}
+.content-right .question-bar .false {
+  background-color: #FBDDD1;
+}
