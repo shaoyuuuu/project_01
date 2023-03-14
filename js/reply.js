@@ -8,7 +8,10 @@ const petTips = document.querySelector('#tips');
 const problem = document.querySelector('.problem');
 
 //选项
-const options = document.querySelectorAll('.option span');
+const options = document.querySelectorAll('.option');
+
+//顶部圆点
+const circleList=document.querySelectorAll('.circle-list .circle');
 
 //当前页面题目序号
 let problemCount = 0;
@@ -16,7 +19,6 @@ let problemCount = 0;
 //当前题目对应的正确答案
 let correctOption;
 
-console.log(options);
 const questionsList = [
   {
     question: '你的同学cc嘴上长了一个大炮，请你帮帮他，选择适合她的药材',
@@ -41,10 +43,13 @@ const str1 = '[{"question":"11111111111","option":["aaaaaaaaa#","bbbbbbbbb","ccc
 //渲染题目函数 传入JSON对象
 function renderingProblems(questionsJSON) {
   const questionsLists = JSON.parse(questionsJSON);
+  if(problemCount!==0){
+    document.querySelector('.now').classList.remove('now');
+  }
+  circleList[problemCount].classList.add('now');
   if (problemCount < questionsLists.length) {
     //浅拷贝对应题目的选项
     const optionArr = JSON.parse(questionsJSON)[0].option;
-    console.log(optionArr);
     //将选项状态清空
     for (let i = 0; i < optionArr.length; i++) {
       document.querySelectorAll('.option')[i].className = 'option';
@@ -57,35 +62,42 @@ function renderingProblems(questionsJSON) {
         optionArr[random] = optionArr[random].replace('#', '');
         correctOption = optionArr[random];
       }
-      options[i].innerHTML = optionArr[random];
+      options[i].innerHTML = options[i].dataset.option + '.&nbsp&nbsp' + optionArr[random];
       optionArr.splice(random, 1);
     }
   }
 
-  if(problemCount===questionsLists.length){
+  if (problemCount === questionsLists.length) {
     alert('dawan')
   }
 }
 renderingProblems(str1);
 
 //判断选择选项的正误
+//答题程序的定时器
 let xztTimer;
+//检测用户是否选择
+let isClick = false;
 document.querySelector('.question-bar').addEventListener('click', function (e) {
   if (e.target.dataset.option) {
-    if (e.target.querySelector('span').innerHTML === correctOption) {
-      e.target.classList.add('true');
-    } else {
-      e.target.classList.add('false');
-    }
-    if (!xztTimer) {
-      xztTimer = setTimeout(function () {
-        problemCount++;
-        xztTimer = null;
-        renderingProblems(str1);
-      }, 300);
+    if (!isClick) {
+      isClick=true;
+      if (e.target.innerHTML === correctOption) {
+        e.target.classList.add('true');
+      } else {
+        e.target.classList.add('false');
+      }
+      if (!xztTimer) {
+        xztTimer = setTimeout(function () {
+          problemCount++;
+          xztTimer = null;
+          isClick=false;
+          renderingProblems(str1);
+        }, 3000);
+      }
     }
   }
-})
+}, false)
 
 
 //向后台请求数据
